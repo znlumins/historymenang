@@ -3,8 +3,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import { CSSProperties } from "react";
 
-// URL untuk siluet Borobudur. Anda bisa ganti dengan file SVG lokal Anda untuk performa lebih baik.
+// URL untuk siluet Borobudur
 const borobudurSilhouetteUrl = "https://www.svgrepo.com/show/24443/borobudur-temple.svg";
+
+// URL untuk ikon media sosial (warna disesuaikan agar cocok dengan tema)
+const twitterIconUrl = "https://api.iconify.design/mdi/twitter.svg?color=%239ca3af&width=24";
+const facebookIconUrl = "https://api.iconify.design/mdi/facebook.svg?color=%239ca3af&width=24";
+const instagramIconUrl = "https://api.iconify.design/mdi/instagram.svg?color=%239ca3af&width=24";
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
@@ -12,20 +17,18 @@ const Index = () => {
   const styles: { [key: string]: CSSProperties } = {
     // SECTION: MAIN CONTAINER & HERO
     container: {
-      backgroundColor: "#f8fafc", 
+      backgroundColor: "#f8fafc",
     },
     heroSection: {
-      minHeight: "calc(100vh - 64px)", 
+      minHeight: "calc(100vh - 64px)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       padding: "40px 24px",
-      // PERUBAHAN UTAMA: Latar belakang gradien Merah-Putih yang dinamis
       backgroundColor: "#ef4444", // Fallback color
-      background: "linear-gradient(120deg, #ef4444 40%, #f8fafc 80%)", 
+      background: "linear-gradient(120deg, #ef4444 40%, #f8fafc 80%)",
       position: "relative",
-      overflow: "hidden", 
-      // PERUBAHAN UTAMA: Menambahkan siluet candi sebagai background image
+      overflow: "hidden",
       backgroundImage: `url(${borobudurSilhouetteUrl})`,
       backgroundRepeat: "no-repeat",
       backgroundPosition: "bottom -100px right -150px", // Posisi di kanan bawah
@@ -37,7 +40,6 @@ const Index = () => {
       position: "relative",
       zIndex: 2,
     },
-    // Elemen blob dihilangkan, diganti dengan siluet yang lebih relevan
     heroIllustration: {
       fontSize: "6rem",
       marginBottom: "24px",
@@ -46,7 +48,7 @@ const Index = () => {
     heroTitle: {
       fontSize: "3.5rem",
       fontWeight: 800,
-      color: "#1e293b", // Warna teks gelap agar terbaca di latar putih/merah muda
+      color: "#1e293b", // Warna teks gelap agar terbaca
       marginBottom: "16px",
       textShadow: "0px 2px 15px rgba(255, 255, 255, 0.5)", // Bayangan putih agar menonjol
     },
@@ -90,24 +92,59 @@ const Index = () => {
       textDecoration: "none",
       transition: "transform 0.1s ease-out, background-color 0.2s",
     },
-    // SECTION: FOOTER
+    // SECTION: FOOTER (GAYA BARU, KONTEN SESUAI HISTORIC BLOCK)
     footer: {
-      backgroundColor: "#111827",
-      color: "white",
-      padding: "32px 16px",
-      textAlign: "center" as const,
+      backgroundColor: "#1f2937", // Abu-abu gelap yang netral dan elegan
+      color: "#9ca3af",
+      padding: "40px 24px",
     },
     footerContainer: {
-      maxWidth: "1536px",
+      maxWidth: "1280px",
       margin: "0 auto",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      flexWrap: "wrap",
+      gap: "32px",
     },
-    footerTitle: {
-      fontSize: "18px",
-      fontWeight: 600,
+    footerBrand: {
+      flex: 1,
+      minWidth: "250px",
+    },
+    footerBrandTitle: {
+      fontSize: "1.25rem",
+      fontWeight: 700,
+      color: "#ffffff",
       marginBottom: "8px",
     },
-    footerSubtitle: {
+    footerCopyright: {
+      fontSize: "0.875rem",
+      marginTop: "16px",
+    },
+    footerLinksContainer: {
+      display: "flex",
+      gap: "48px",
+      flexWrap: "wrap",
+    },
+    footerLinkGroup: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "12px",
+    },
+    footerLinkTitle: {
+      fontWeight: 600,
+      color: "#ffffff",
+      fontSize: "1rem",
+    },
+    footerLink: {
       color: "#9ca3af",
+      textDecoration: "none",
+      transition: "color 0.2s",
+    },
+    socialIcons: {
+      display: "flex",
+      gap: "16px",
+      alignItems: "center",
     },
   };
 
@@ -115,16 +152,19 @@ const Index = () => {
     @keyframes float {
       0% { transform: translateY(0px); }
       50% { transform: translateY(-20px); }
-      100% { translateY(0px); }
+      100% { transform: translateY(0px); }
     }
   `;
 
+  // --- Penyesuaian untuk Mobile ---
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   if (isMobile) {
     styles.heroTitle.fontSize = "2.5rem";
     styles.heroIllustration.fontSize = "5rem";
     styles.heroSection.backgroundPosition = "bottom -50px right -100px";
     styles.heroSection.backgroundSize = "300px";
+    styles.footerContainer.flexDirection = "column"; // Tumpuk elemen footer di mobile
+    styles.footerContainer.alignItems = "flex-start"; // Rata kiri di mobile
   }
 
   return (
@@ -134,7 +174,7 @@ const Index = () => {
 
       <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
-          <div style={styles.heroIllustration}>🦅</div> 
+          <div style={styles.heroIllustration}>🦅</div>
           <h1 style={styles.heroTitle}>Jadi Saksi Sejarah Bangsa</h1>
           <p style={styles.heroSubtitle}>
             Dari Sabang sampai Merauke, dari era kerajaan hingga reformasi. Seberapa jauh kamu mengenal Indonesia?
@@ -167,12 +207,37 @@ const Index = () => {
         </div>
       </section>
 
+      {/* --- FOOTER BARU YANG SESUAI TEMA --- */}
       <footer style={styles.footer}>
         <div style={styles.footerContainer}>
-          <p style={styles.footerTitle}>Historic Block</p>
-          <p style={styles.footerSubtitle}>
-            Belajar sejarah dengan cara yang menyenangkan
-          </p>
+          <div style={styles.footerBrand}>
+            <p style={styles.footerBrandTitle}>Historic Block</p>
+            <p>Belajar sejarah dengan cara yang menyenangkan.</p>
+            <div style={styles.footerCopyright}>
+              © {new Date().getFullYear()} Historic Block. All Rights Reserved.
+            </div>
+          </div>
+
+          <div style={styles.footerLinksContainer}>
+            <div style={styles.footerLinkGroup}>
+              <p style={styles.footerLinkTitle}>Navigasi</p>
+              <Link to="/" style={styles.footerLink}>Beranda</Link>
+              <Link to="/kuis" style={styles.footerLink}>Mulai Kuis</Link>
+              <Link to="/tentang" style={styles.footerLink}>Tentang Kami</Link>
+            </div>
+            <div style={styles.footerLinkGroup}>
+              <p style={styles.footerLinkTitle}>Lainnya</p>
+              <Link to="/kebijakan-privasi" style={styles.footerLink}>Kebijakan Privasi</Link>
+              <Link to="/syarat-ketentuan" style={styles.footerLink}>Syarat & Ketentuan</Link>
+              <Link to="/kontak" style={styles.footerLink}>Hubungi Kami</Link>
+            </div>
+          </div>
+
+          <div style={styles.socialIcons}>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><img src={twitterIconUrl} alt="Twitter"/></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><img src={facebookIconUrl} alt="Facebook"/></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><img src={instagramIconUrl} alt="Instagram"/></a>
+          </div>
         </div>
       </footer>
     </div>
