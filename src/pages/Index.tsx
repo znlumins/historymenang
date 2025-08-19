@@ -1,39 +1,64 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
+import { CSSProperties } from "react";
+
+// URL untuk siluet Borobudur. Anda bisa ganti dengan file SVG lokal Anda untuk performa lebih baik.
+const borobudurSilhouetteUrl = "https://www.svgrepo.com/show/24443/borobudur-temple.svg";
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
 
-  const styles = {
+  const styles: { [key: string]: CSSProperties } = {
+    // SECTION: MAIN CONTAINER & HERO
     container: {
-      minHeight: "100vh",
-      backgroundColor: "white",
+      backgroundColor: "#f8fafc", 
     },
     heroSection: {
-      padding: "80px 16px",
-      background: "linear-gradient(to right, #fffbeb, #fef3c7)",
+      minHeight: "calc(100vh - 64px)", 
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "40px 24px",
+      // PERUBAHAN UTAMA: Latar belakang gradien Merah-Putih yang dinamis
+      backgroundColor: "#ef4444", // Fallback color
+      background: "linear-gradient(120deg, #ef4444 40%, #f8fafc 80%)", 
+      position: "relative",
+      overflow: "hidden", 
+      // PERUBAHAN UTAMA: Menambahkan siluet candi sebagai background image
+      backgroundImage: `url(${borobudurSilhouetteUrl})`,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "bottom -100px right -150px", // Posisi di kanan bawah
+      backgroundSize: "600px", // Ukuran siluet
     },
     heroContainer: {
-      maxWidth: "1024px",
-      margin: "0 auto",
+      maxWidth: "800px",
       textAlign: "center" as const,
+      position: "relative",
+      zIndex: 2,
+    },
+    // Elemen blob dihilangkan, diganti dengan siluet yang lebih relevan
+    heroIllustration: {
+      fontSize: "6rem",
+      marginBottom: "24px",
+      animation: "float 4s ease-in-out infinite",
     },
     heroTitle: {
-      fontSize: "3rem",
-      fontWeight: "700",
-      color: "#1f2937",
-      marginBottom: "24px",
-      lineHeight: "1.2",
+      fontSize: "3.5rem",
+      fontWeight: 800,
+      color: "#1e293b", // Warna teks gelap agar terbaca di latar putih/merah muda
+      marginBottom: "16px",
+      textShadow: "0px 2px 15px rgba(255, 255, 255, 0.5)", // Bayangan putih agar menonjol
     },
     heroSubtitle: {
       fontSize: "1.25rem",
-      color: "#4b5563",
-      marginBottom: "32px",
-      maxWidth: "512px",
-      margin: "0 auto 32px auto",
-      lineHeight: "1.6",
+      color: "#475569", // Abu-abu gelap agar nyaman dibaca
+      marginBottom: "40px",
+      maxWidth: "600px",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
+    // SECTION: BUTTONS (Warna disesuaikan agar cocok)
     buttonContainer: {
       display: "flex",
       gap: "16px",
@@ -42,79 +67,43 @@ const Index = () => {
     },
     primaryButton: {
       display: "inline-block",
-      backgroundColor: "#eab308",
-      color: "white",
-      padding: "12px 32px",
-      borderRadius: "8px",
-      fontSize: "18px",
-      fontWeight: "600",
+      backgroundColor: "#d97706", // Warna kuning kunyit/emas
+      color: "#ffffff",
+      padding: "16px 48px",
+      borderRadius: "12px",
+      fontSize: "1.1rem",
+      fontWeight: "700",
       textDecoration: "none",
-      transition: "background-color 0.2s",
+      borderBottom: "4px solid #9a3412", // Coklat tua untuk efek 3D
+      boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
+      transition: "transform 0.1s ease-out, background-color 0.2s",
     },
     secondaryButton: {
       display: "inline-block",
-      backgroundColor: "white",
-      color: "#eab308",
-      border: "1px solid #eab308",
-      padding: "12px 32px",
-      borderRadius: "8px",
-      fontSize: "18px",
-      fontWeight: "600",
-      textDecoration: "none",
-      transition: "background-color 0.2s",
-    },
-    featuresSection: {
-      padding: "64px 16px",
-      backgroundColor: "white",
-    },
-    featuresContainer: {
-      maxWidth: "1536px",
-      margin: "0 auto",
-    },
-    featuresTitle: {
-      fontSize: "2rem",
+      backgroundColor: "#ffffff",
+      color: "#be123c", // Warna merah yang kuat
+      border: "2px solid #fecaca",
+      padding: "14px 48px",
+      borderRadius: "12px",
+      fontSize: "1.1rem",
       fontWeight: "700",
-      textAlign: "center" as const,
-      color: "#1f2937",
-      marginBottom: "48px",
+      textDecoration: "none",
+      transition: "transform 0.1s ease-out, background-color 0.2s",
     },
-    featuresGrid: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-      gap: "32px",
-    },
-    featureCard: {
-      textAlign: "center" as const,
-      padding: "24px",
-      backgroundColor: "#f9fafb",
-      borderRadius: "8px",
-    },
-    featureIcon: {
-      fontSize: "3rem",
-      marginBottom: "16px",
-    },
-    featureTitle: {
-      fontSize: "1.25rem",
-      fontWeight: "600",
-      color: "#1f2937",
-      marginBottom: "8px",
-    },
-    featureDescription: {
-      color: "#4b5563",
-    },
+    // SECTION: FOOTER
     footer: {
-      backgroundColor: "#1f2937",
+      backgroundColor: "#111827",
       color: "white",
       padding: "32px 16px",
+      textAlign: "center" as const,
     },
     footerContainer: {
       maxWidth: "1536px",
       margin: "0 auto",
-      textAlign: "center" as const,
     },
     footerTitle: {
       fontSize: "18px",
-      fontWeight: "600",
+      fontWeight: 600,
       marginBottom: "8px",
     },
     footerSubtitle: {
@@ -122,77 +111,55 @@ const Index = () => {
     },
   };
 
-  // Media queries simulation for responsive design
-  const isMobile = window.innerWidth < 768;
+  const keyframes = `
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { translateY(0px); }
+    }
+  `;
 
-  const mobileStyles = {
-    heroTitle: {
-      ...styles.heroTitle,
-      fontSize: isMobile ? "2rem" : "3rem",
-    },
-    heroSubtitle: {
-      ...styles.heroSubtitle,
-      fontSize: isMobile ? "1rem" : "1.25rem",
-    },
-    buttonContainer: {
-      ...styles.buttonContainer,
-      flexDirection: isMobile ? ("column" as const) : ("row" as const),
-      alignItems: "center",
-    },
-  };
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  if (isMobile) {
+    styles.heroTitle.fontSize = "2.5rem";
+    styles.heroIllustration.fontSize = "5rem";
+    styles.heroSection.backgroundPosition = "bottom -50px right -100px";
+    styles.heroSection.backgroundSize = "300px";
+  }
 
   return (
     <div style={styles.container}>
+      <style>{keyframes}</style>
       <Navbar />
 
-      {/* Hero Section */}
       <section style={styles.heroSection}>
         <div style={styles.heroContainer}>
-          <h1 style={mobileStyles.heroTitle}>🏛️ Historic Block</h1>
-          <p style={mobileStyles.heroSubtitle}>
-            Belajar sejarah Indonesia dengan cara yang menyenangkan! Mainkan
-            kuis interaktif dan tes pengetahuan sejarahmu.
+          <div style={styles.heroIllustration}>🦅</div> 
+          <h1 style={styles.heroTitle}>Jadi Saksi Sejarah Bangsa</h1>
+          <p style={styles.heroSubtitle}>
+            Dari Sabang sampai Merauke, dari era kerajaan hingga reformasi. Seberapa jauh kamu mengenal Indonesia?
           </p>
-
-          <div style={mobileStyles.buttonContainer}>
+          <div style={styles.buttonContainer}>
             {isAuthenticated ? (
-              <Link
-                to="/kuis"
-                style={styles.primaryButton}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#ca8a04";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#eab308";
-                }}
+              <Link to="/kuis" style={styles.primaryButton}
+                onMouseDown={(e) => e.currentTarget.style.transform = "translateY(2px)"}
+                onMouseUp={(e) => e.currentTarget.style.transform = "translateY(0px)"}
               >
-                🎯 Mulai Kuis
+                Mulai Petualangan
               </Link>
             ) : (
               <>
-                <Link
-                  to="/register"
-                  style={styles.primaryButton}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#ca8a04";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "#eab308";
-                  }}
+                <Link to="/register" style={styles.primaryButton}
+                  onMouseDown={(e) => e.currentTarget.style.transform = "translateY(2px)"}
+                  onMouseUp={(e) => e.currentTarget.style.transform = "translateY(0px)"}
                 >
-                  📝 Daftar Sekarang
+                  Daftar Sekarang
                 </Link>
-                <Link
-                  to="/login"
-                  style={styles.secondaryButton}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#fef3c7";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "white";
-                  }}
+                <Link to="/login" style={styles.secondaryButton}
+                  onMouseDown={(e) => e.currentTarget.style.transform = "translateY(2px)"}
+                  onMouseUp={(e) => e.currentTarget.style.transform = "translateY(0px)"}
                 >
-                  🚪 Masuk
+                  Masuk
                 </Link>
               </>
             )}
@@ -200,40 +167,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section style={styles.featuresSection}>
-        <div style={styles.featuresContainer}>
-          <h2 style={styles.featuresTitle}>✨ Fitur Unggulan</h2>
-
-          <div style={styles.featuresGrid}>
-            <div style={styles.featureCard}>
-              <div style={styles.featureIcon}>📱</div>
-              <h3 style={styles.featureTitle}>AR Scanner</h3>
-              <p style={styles.featureDescription}>
-                Scan kartu Historic Block untuk memulai kuis
-              </p>
-            </div>
-
-            <div style={styles.featureCard}>
-              <div style={styles.featureIcon}>📚</div>
-              <h3 style={styles.featureTitle}>Kuis Manual</h3>
-              <p style={styles.featureDescription}>
-                Pilih topik dan tingkat kesulitan sendiri
-              </p>
-            </div>
-
-            <div style={styles.featureCard}>
-              <div style={styles.featureIcon}>🏆</div>
-              <h3 style={styles.featureTitle}>Leaderboard</h3>
-              <p style={styles.featureDescription}>
-                Kompetisi dengan pemain lain
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
       <footer style={styles.footer}>
         <div style={styles.footerContainer}>
           <p style={styles.footerTitle}>Historic Block</p>
